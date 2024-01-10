@@ -1,6 +1,6 @@
+rapidfuzz
 pandas
 numpy
 argparse
 openpyxl
 pyxlsb
-rapidfuzz
