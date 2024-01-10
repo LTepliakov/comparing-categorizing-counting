@@ -1,9 +1,9 @@
-name: Parse DBT materializations
-run-name: Parsing materializations after push by ${{ github.actor }} 🚀
+name: Run comparing, categorizing, counting process
+run-name: Run comparing, categorizing, counting process
 on: 
   workflow_dispatch:
 jobs:
-  Parse-Materializations:
+  Process_input_file:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
