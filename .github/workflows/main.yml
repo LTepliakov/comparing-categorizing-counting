@@ -1,13 +1,11 @@
 name: Parse DBT materializations
 run-name: Parsing materializations after push by ${{ github.actor }} 🚀
 on: 
-workflow_dispatch:
+  workflow_dispatch:
 jobs:
   Parse-Materializations:
     runs-on: ubuntu-latest
     steps:
-      - name: Check environment
-        run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - name: Check out repository code
         uses: actions/checkout@v4
       - name : Check ckeckout
