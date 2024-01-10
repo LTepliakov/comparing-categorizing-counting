@@ -3,3 +3,5 @@ numpy
 argparse
 openpyxl
 pyxlsb
+rapidfuzz
+
