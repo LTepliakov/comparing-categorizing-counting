@@ -19,7 +19,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: execute py script # run main.py
-        run: python Categorize.py TestFile.xlsx --matchPcntName 80 --matchPcntAddress 65
+        run: python Categorize.py TestFile.xlsx --matchPcntName 80 --matchPcntAddress 65 --limitUniqueClients 2 
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
