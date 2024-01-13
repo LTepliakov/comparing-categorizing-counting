@@ -68,8 +68,6 @@ jobs:
             print(f'kwargstring={kw}',file=fh) 
         shell: python 
         id: kwargs
-      - name: show kwarg line
-        run: echo " ${{ steps.kwargs.outputs.kwarstring }}"
       - name: execute py script # run main.py
         run: python Categorize.py ${{ inputs.inputFileName }} ${{ steps.kwargs.outputs.kwargstring }}
       - name: List files in the repository
