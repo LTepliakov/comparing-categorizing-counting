@@ -20,7 +20,7 @@ on:
         default: ''
         type: string
       limitClientsToProcess:
-        description: Process will be stopped after this limit exceeds
+        description: Process will be stopped after this number of same client groups identified
         default: ''
         type: string
       limitInputRows:
