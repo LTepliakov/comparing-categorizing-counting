@@ -2,6 +2,16 @@ name: Run comparing, categorizing, counting process
 run-name: Run comparing, categorizing, counting process
 on: 
   workflow_dispatch:
+    inputs:
+      nameMatchPcnt:
+        description: Match percent for names
+        default: '80'
+        type: string
+      addrMatchPcnt:
+        description: Match percent for addresses
+        default: '60'
+        type: string
+    
 jobs:
   Process_input_file:
     runs-on: ubuntu-latest
@@ -19,7 +29,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: execute py script # run main.py
-        run: python Categorize.py TestFile.xlsx --matchPcntName 80 --matchPcntAddress 65 
+        run: python Categorize.py TestFile.xlsx --matchPcntName  ${{ inputs.nameMatchPcnt }} --matchPcntAddress ${{ inputs.addrMatchPcnt }} --limitUniqueClients 2
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
