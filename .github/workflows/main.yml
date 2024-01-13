@@ -5,12 +5,17 @@ on:
     inputs:
       nameMatchPcnt:
         description: Match percent for names
-        default: '80'
+        default: ''
         type: string
       addrMatchPcnt:
         description: Match percent for addresses
-        default: '60'
+        default: ''
         type: string
+      limitClientsToProcess:
+        description: Process will be stopped after this limit exceeds
+        default: ''
+        type: string
+
     
 jobs:
   Process_input_file:
@@ -37,8 +42,9 @@ jobs:
             else:
               return ""
           kw=''
-          kw=kw+' '+kwarg('matchPcntAddress',str(${{ inputs.addrMatchPcnt }}))
-          kw=kw+' '+kwarg('matchPcntName'   ,str(${{ inputs.nameMatchPcnt }}))
+          kw=kw+' '+kwarg('matchPcntAddress'   ,str(${{ inputs.addrMatchPcnt }}))
+          kw=kw+' '+kwarg('matchPcntName'      ,str(${{ inputs.nameMatchPcnt }}))
+          kw=kw+' '+kwarg('limitUniqueClients' ,str(${{ inputs.limitClientsToProcess }}))
           with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
             print(f'kwargstring={kw}',file=fh)
         shell: python 
@@ -46,7 +52,7 @@ jobs:
       - name: show kwarg line
         run: echo " ${{ steps.kwargs.outputs.kwarstring }}"
       - name: execute py script # run main.py
-        run: python Categorize.py TestFile.xlsx --limitUniqueClients 2 ${{ steps.kwargs.outputs.kwargstring }}
+        run: python Categorize.py TestFile.xlsx ${{ steps.kwargs.outputs.kwargstring }}
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
