@@ -24,7 +24,7 @@ on:
         default: ''
         type: string
       limitInputRows:
-        description: Process will be stopped after this number of rows taken from input file
+        description: Process will run on this number of inpur file first rows only
         default: ''
         type: string
       skipFirstRows:
