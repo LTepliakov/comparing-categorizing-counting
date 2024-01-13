@@ -3,18 +3,35 @@ run-name: Run comparing, categorizing, counting process
 on: 
   workflow_dispatch:
     inputs:
+      inputFileName:
+        description: Input file name
+        default: 'TestFile.xlsx'
+        type: string
+      exemptionsFile:
+        description: Exemptions file name (exemptions.txt if not specified)
+        default: ''
+        type: string
       nameMatchPcnt:
-        description: Match percent for names
+        description: Match percent for names (80  if not specified)
         default: ''
         type: string
       addrMatchPcnt:
-        description: Match percent for addresses
+        description: Match percent for addresses (60  if not specified)
         default: ''
         type: string
       limitClientsToProcess:
         description: Process will be stopped after this limit exceeds
         default: ''
         type: string
+      limitInputRows:
+        description: Process will be stopped after this number of rows taken from input file
+        default: ''
+        type: string
+      skipFirstRows:
+        description: Process will start after this number of rows skipped from beginnig of input file
+        default: ''
+        type: string
+      
 
     
 jobs:
@@ -45,14 +62,16 @@ jobs:
           kw=kw+' '+kwarg('matchPcntAddress'   ,str(${{ inputs.addrMatchPcnt }}))
           kw=kw+' '+kwarg('matchPcntName'      ,str(${{ inputs.nameMatchPcnt }}))
           kw=kw+' '+kwarg('limitUniqueClients' ,str(${{ inputs.limitClientsToProcess }}))
+          kw=kw+' '+kwarg('limitInputRows'     ,str(${{ inputs.limitInputRows }}))
+          kw=kw+' '+kwarg('skipFirstRows'      ,str(${{ inputs.skipFirstRows }}))
           with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
-            print(f'kwargstring={kw}',file=fh)
+            print(f'kwargstring={kw}',file=fh) 
         shell: python 
         id: kwargs
       - name: show kwarg line
         run: echo " ${{ steps.kwargs.outputs.kwarstring }}"
       - name: execute py script # run main.py
-        run: python Categorize.py TestFile.xlsx ${{ steps.kwargs.outputs.kwargstring }}
+        run: python Categorize.py ${{ inputs.skipFirstRows }} ${{ steps.kwargs.outputs.kwargstring }}
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
