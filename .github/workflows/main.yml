@@ -46,7 +46,7 @@ jobs:
       - name: show kwarg line
         run: echo " ${{ steps.kwargs.outputs.kwarstring }}"
       - name: execute py script # run main.py
-        run: python Categorize.py TestFile.xlsx --matchPcntName --limitUniqueClients 2 ${{ steps.kwargs.outputs.kwargstring }}
+        run: python Categorize.py TestFile.xlsx --limitUniqueClients 2 ${{ steps.kwargs.outputs.kwargstring }}
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
