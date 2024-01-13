@@ -18,11 +18,16 @@ jobs:
     steps:
       - name: compose kwargs line
         run: |
+          import os
           def kwarg(a,v):
             if len(v.strip())>0:
               return "--"+a+" "+v
             else:
               return ""
-          print(kwarg('aaa',str(${{ inputs.nameMatchPcnt }}) ))
-        shell: python
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+            print(kwarg('matchPcntAddress',str(${{ inputs.nameMatchPcnt }}) ,file=fh))
+        shell: python 
+        id: kwargs
+      - name: show kwarg line
+        run: echo " ${{ steps.kwargs.outputs }}"
 
