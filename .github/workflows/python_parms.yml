@@ -23,6 +23,6 @@ jobs:
               return "--"+a+" "+v
             else:
               return ""
-          print(kwarg('aaa',${{ inputs.nameMatchPcnt }} 
+          print(kwarg('aaa',${{ inputs.nameMatchPcnt }} ))
         shell: python
 
