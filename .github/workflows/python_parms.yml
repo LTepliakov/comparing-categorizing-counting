@@ -24,8 +24,9 @@ jobs:
               return "--"+a+" "+v
             else:
               return ""
+          kw=kwarg('matchPcntAddress',str(${{ inputs.nameMatchPcnt }}))
           with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
-            print(f'kwarstring={kwarg('matchPcntAddress',str(${{ inputs.nameMatchPcnt }}))}',file=fh)
+            print(f'kwarstring={kw}',file=fh)
         shell: python 
         id: kwargs
       - name: show kwarg line
