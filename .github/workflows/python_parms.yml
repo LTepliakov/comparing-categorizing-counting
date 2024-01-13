@@ -1,1 +1,28 @@
+name: Python kwargs
+run-name: Python kwargs
+on: 
+  workflow_dispatch:
+    inputs:
+      nameMatchPcnt:
+        description: Match percent for names
+        default: '80'
+        type: string
+      addrMatchPcnt:
+        description: Match percent for addresses
+        default: '60'
+        type: string
+    
+jobs:
+  try_kwargs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: compose kwargs line
+        run: |
+          def kwarg(a,v):
+            if len(v.strip())>0:
+              return "--"+a+" "+v
+            else:
+              return ""
+          print(kwarg('aaa',${{ inputs.nameMatchPcnt }} 
+        shell: python
 
