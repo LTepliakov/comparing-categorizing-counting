@@ -5,11 +5,11 @@ on:
     inputs:
       nameMatchPcnt:
         description: Match percent for names
-        default: '80'
+        default: ''
         type: string
       addrMatchPcnt:
         description: Match percent for addresses
-        default: '60'
+        default: ''
         type: string
     
 jobs:
